@@ -348,11 +348,10 @@ a:focus-visible {
   padding: clamp(48px, 6vw, 72px) 24px clamp(56px, 7vw, 80px);
   overflow: hidden;
   background-color: var(--cream);
-  background-image: var(--background-image);
+  background-image: url("pareja.jpeg");
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  background-attachment: fixed;
 }
 
 .particles { position: absolute; inset: 0; pointer-events: none; }
@@ -370,14 +369,11 @@ a:focus-visible {
   z-index: 2;
   display: flex;
   flex-direction: column;
+  align-self: stretch;
+  justify-content: space-between;
   max-width: 820px;
   text-align: center;
 }
-
-.hero__copy { display: contents; }
-.hero__title { order: 1; }
-.photo-frame { order: 2; }
-.hero__note { order: 3; }
 
 .eyebrow {
   margin: 0;
@@ -391,7 +387,7 @@ a:focus-visible {
 .hero__title {
   display: flex;
   flex-direction: column;
-  margin: 18px 0 0;
+  margin: 0;
   line-height: .96;
 }
 
@@ -417,22 +413,10 @@ a:focus-visible {
   color: var(--accent-dark);
 }
 
-.photo-frame {
-  width: min(94vw, 760px);
-  margin: 16px auto 0;
-  filter: drop-shadow(0 18px 28px rgba(59, 42, 32, .25));
-}
-
-.photo-frame img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
 .hero__note {
   position: relative;
   max-width: 540px;
-  margin: 12px auto 0;
+  margin: 0 auto;
   padding: clamp(12px, 1.5vw, 18px) clamp(16px, 2vw, 24px);
   border-radius: 16px;
   color: var(--ink);
@@ -715,14 +699,9 @@ footer::after {
     font-size: clamp(1.6rem, 2.6vw, 2.2rem);
   }
 
-  .photo-frame {
-    width: min(100%, 680px);
-    margin: clamp(24px, 3vw, 36px) auto 0;
-  }
-
   .hero__note {
     max-width: 62ch;
-    margin: clamp(22px, 3vw, 32px) auto 0;
+    margin: 0 auto;
     padding: 14px 20px;
     border-radius: 14px;
     font-size: 1.05rem;

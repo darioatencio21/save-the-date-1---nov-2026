@@ -29,10 +29,11 @@ credentials*.json
 *.AVIF
 *.svg
 *.mp4
+*.webm
 *.mp3
 *.wav
 
-!Invitación vintage con rosas y anillos.png
-!marco pareja.png
+!Invitación vintage con rosas y anillos.webp
+!marco pareja.webp
 !lugar de boda.webp
-!gemini_generated_video_0d2b3d38.mp4
+!gemini_generated_video_0d2b3d38.webm

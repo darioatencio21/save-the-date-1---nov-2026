@@ -10,12 +10,13 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Parisienne&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+<link rel="preload" as="image" href="intro-poster.webp" fetchpriority="high">
 </head>
 <body>
 <div class="falling" id="falling" aria-hidden="true"></div>
 
 <div class="intro" id="intro">
-  <video class="intro__video" id="introVideo" src="gemini_generated_video_0d2b3d38.webm" poster="Invitación vintage con rosas y anillos.webp" autoplay muted playsinline preload="auto" controlslist="nodownload" disablepictureinpicture></video>
+  <video class="intro__video" id="introVideo" src="gemini_generated_video_0d2b3d38.webm" poster="intro-poster.webp" autoplay muted playsinline preload="auto" controlslist="nodownload" disablepictureinpicture></video>
   <button type="button" class="intro__sound" id="soundButton" aria-label="Activar sonido" aria-pressed="false" title="Activar sonido">
     <span class="sound-icon sound-icon--off" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="m17 9 5 6M22 9l-5 6"/></svg></span>
     <span class="sound-icon sound-icon--on" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9v6h4l5 4V5L8 9H4Z"/><path d="M16 8.5a5 5 0 0 1 0 7M19 5.5a9 9 0 0 1 0 13"/></svg></span>

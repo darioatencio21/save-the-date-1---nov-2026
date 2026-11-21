@@ -9,6 +9,7 @@
   --ink: #3b2a20;
   --line: #b99b78;
   --background-image: url("Invitación vintage con rosas y anillos.webp");
+  --intro-poster: url("intro-poster.webp");
   --ease: cubic-bezier(.65, 0, .35, 1);
 }
 
@@ -83,7 +84,7 @@ a:focus-visible {
   z-index: 40;
   overflow: hidden;
   background-color: #2f2118;
-  background-image: var(--background-image);
+  background-image: var(--intro-poster);
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;

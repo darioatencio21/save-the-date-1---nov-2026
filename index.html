@@ -32,14 +32,20 @@
     <span data-i18n="scroll">Desliza</span>
   </div>
 
+  <section class="save-title-section" id="save-title">
+    <div class="save-title-section__inner reveal">
+      <h1 class="save-title" data-i18n="heroKicker">SAVE THE DATE</h1>
+      <div class="ornament" aria-hidden="true"></div>
+    </div>
+  </section>
+
   <section class="hero" id="hero">
     <div class="particles" id="particles" aria-hidden="true"></div>
     <div class="hero__inner">
-      <p class="eyebrow" data-i18n="heroKicker">SAVE THE DATE</p>
-      <h1 class="hero__title">
+      <h2 class="hero__title">
         <span class="hero__names" id="heroNames">George &amp; Monica</span>
-        <span class="hero__verb" data-i18n="heroVerb">nos casamos</span>
-      </h1>
+        <span class="hero__verb" data-i18n="heroVerb">We're getting married</span>
+      </h2>
       <figure class="photo-frame">
         <img src="marco pareja.webp" alt="Foto de George y Monica en marco vintage" loading="eager">
       </figure>
@@ -78,28 +84,11 @@
         <svg class="panel-floral panel-floral--br" viewBox="0 0 100 100" focusable="false"><use href="#panelSprig"/></svg>
       </div>
       <p class="eyebrow" data-i18n="dateEyebrow">LA FECHA</p>
-      <p class="date" id="dateText">13 de junio de 2027</p>
-      <p class="time" id="timeText">17:00 h</p>
-      <div class="ornament" aria-hidden="true"></div>
-      <p class="countdown__label" data-i18n="countdownLabel">Faltan</p>
-      <div class="countdown" role="timer" aria-live="off">
-        <div class="count">
-          <div class="count__box"><span class="count__value" id="cdDays">--</span></div>
-          <div class="count__label" data-i18n="days">Días</div>
-        </div>
-        <div class="count">
-          <div class="count__box"><span class="count__value" id="cdHours">--</span></div>
-          <div class="count__label" data-i18n="hours">Horas</div>
-        </div>
-        <div class="count">
-          <div class="count__box"><span class="count__value" id="cdMinutes">--</span></div>
-          <div class="count__label" data-i18n="minutes">Minutos</div>
-        </div>
-        <div class="count">
-          <div class="count__box"><span class="count__value" id="cdSeconds">--</span></div>
-          <div class="count__label" data-i18n="seconds">Segundos</div>
-        </div>
+      <div class="date__display">
+        <p class="date" id="dateText">September 25, 2027</p>
+        <p class="time" id="timeText">17:00 h</p>
       </div>
+      <div class="ornament" aria-hidden="true"></div>
       <p class="calendar__label" data-i18n="calendarLabel">Agrega la fecha a tu calendario</p>
       <div class="calendar-actions">
         <button type="button" class="button button--outline" id="googleButton" data-i18n="google">Google Calendar</button>

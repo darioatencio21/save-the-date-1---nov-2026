@@ -5,11 +5,11 @@ const eventInfo = {
   names: "George & Monica",
   monogram: "G&M",
   slug: "george-monica-wedding",
-  startsAt: "2027-06-13T17:00:00-06:00",
-  endsAt: "2027-06-13T23:00:00-06:00",
+  startsAt: "2027-09-25T17:00:00-06:00",
+  endsAt: "2027-09-25T23:00:00-06:00",
   date: {
-    es: "13 de junio de 2027",
-    en: "June 13, 2027"
+    es: "25 de septiembre de 2027",
+    en: "September 25, 2027"
   },
   time: {
     es: "17:00 h",
@@ -31,14 +31,9 @@ const copy = {
     soundOff: "Silenciar sonido",
     scroll: "Desliza",
     heroKicker: "SAVE THE DATE",
-    heroVerb: "nos casamos",
+    heroVerb: "Nos casamos",
     heroNote: "El amor nos trajo hasta aquí, y queremos celebrar este nuevo capítulo rodeados de quienes más queremos. Reservá esta fecha para compartir con nosotros un momento inolvidable",
     dateEyebrow: "LA FECHA",
-    countdownLabel: "Faltan",
-    days: "Días",
-    hours: "Horas",
-    minutes: "Minutos",
-    seconds: "Segundos",
     calendarLabel: "Agrega la fecha a tu calendario",
     google: "Google Calendar",
     apple: "Apple Calendar",
@@ -54,14 +49,9 @@ const copy = {
     soundOff: "Turn sound off",
     scroll: "Scroll",
     heroKicker: "SAVE THE DATE",
-    heroVerb: "we're getting married",
+    heroVerb: "We're getting married",
     heroNote: "Love brought us here, and we want to celebrate this new chapter surrounded by the people we love most. Save this date to share an unforgettable moment with us.",
     dateEyebrow: "THE DATE",
-    countdownLabel: "Time to go",
-    days: "Days",
-    hours: "Hours",
-    minutes: "Minutes",
-    seconds: "Seconds",
     calendarLabel: "Add the date to your calendar",
     google: "Google Calendar",
     apple: "Apple Calendar",
@@ -94,7 +84,7 @@ function applyLanguage() {
   });
   document.title = t("pageTitle");
   document.documentElement.lang = lang;
-  const soundLabel = introVideo.muted ? t("soundOn") : t("soundOff");
+  const soundLabel = $("introVideo").muted ? t("soundOn") : t("soundOff");
   $("soundButton").setAttribute("aria-label", soundLabel);
   $("soundButton").setAttribute("title", soundLabel);
   $("heroNames").textContent = eventInfo.names;
@@ -108,30 +98,6 @@ $("languageButton").addEventListener("click", () => {
   lang = lang === "es" ? "en" : "es";
   applyLanguage();
 });
-
-const target = new Date(eventInfo.startsAt).getTime();
-
-function updateCountdown() {
-  const diff = target - Date.now();
-  const values = ["cdDays", "cdHours", "cdMinutes", "cdSeconds"];
-
-  if (diff <= 0) {
-    values.forEach((id, index) => {
-      $(id).textContent = index === 0 ? "0" : "00";
-    });
-    return;
-  }
-
-  const days = Math.floor(diff / 86400000);
-  const hours = Math.floor((diff % 86400000) / 3600000);
-  const minutes = Math.floor((diff % 3600000) / 60000);
-  const seconds = Math.floor((diff % 60000) / 1000);
-
-  $("cdDays").textContent = String(days);
-  $("cdHours").textContent = String(hours).padStart(2, "0");
-  $("cdMinutes").textContent = String(minutes).padStart(2, "0");
-  $("cdSeconds").textContent = String(seconds).padStart(2, "0");
-}
 
 function icsDate(date) {
   return date.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
@@ -343,7 +309,5 @@ function buildFalling() {
 }
 
 applyLanguage();
-updateCountdown();
-window.setInterval(updateCountdown, 1000);
 buildParticles();
 buildFalling();

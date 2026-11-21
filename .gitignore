@@ -1,0 +1,38 @@
+.DS_Store
+Thumbs.db
+desktop.ini
+*.log
+*.tmp
+*.bak
+*.orig
+*~
+.vscode/
+.idea/
+node_modules/
+.env
+.env.*
+*.pem
+*.key
+credentials*.json
+
+*.png
+*.PNG
+*.jpg
+*.jpeg
+*.JPG
+*.JPEG
+*.webp
+*.WEBP
+*.gif
+*.GIF
+*.avif
+*.AVIF
+*.svg
+*.mp4
+*.mp3
+*.wav
+
+!Invitación vintage con rosas y anillos.png
+!marco pareja.png
+!lugar de boda.webp
+!gemini_generated_video_0d2b3d38.mp4

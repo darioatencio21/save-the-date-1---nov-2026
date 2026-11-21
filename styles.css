@@ -11,6 +11,7 @@
   --background-image: url("Invitación vintage con rosas y anillos.webp");
   --intro-poster: url("intro-poster.webp");
   --ease: cubic-bezier(.65, 0, .35, 1);
+  --ease-out: cubic-bezier(.16, 1, .3, 1);
 }
 
 * { box-sizing: border-box; }
@@ -83,11 +84,6 @@ a:focus-visible {
   to { opacity: .9; }
 }
 
-@keyframes titleStarTwinkle {
-  from { opacity: .35; transform: rotate(45deg) scale(.65); }
-  to { opacity: 1; transform: rotate(45deg) scale(1.15); }
-}
-
 .intro {
   position: fixed;
   inset: 0;
@@ -98,7 +94,7 @@ a:focus-visible {
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  transition: opacity .75s var(--ease), visibility .75s var(--ease), transform .75s var(--ease);
+  transition: opacity .9s var(--ease-out), visibility .9s var(--ease-out), transform .9s var(--ease-out), filter .9s var(--ease-out);
 }
 
 .intro[hidden] { display: none; }
@@ -106,7 +102,8 @@ a:focus-visible {
 .intro.is-leaving {
   opacity: 0;
   visibility: hidden;
-  transform: scale(1.04);
+  transform: translateY(-3%) scale(1.025);
+  filter: blur(6px);
   pointer-events: none;
 }
 
@@ -233,7 +230,7 @@ a:focus-visible {
   display: none;
 }
 
-.site.is-visible { display: block; animation: siteIn .85s var(--ease); }
+.site.is-visible { display: block; animation: siteIn 1.15s var(--ease-out) both; }
 
 .language {
   position: fixed;
@@ -294,66 +291,6 @@ a:focus-visible {
   background-attachment: fixed;
 }
 
-.save-title-section::before,
-.save-title-section::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.save-title-section::before {
-  background-image:
-    radial-gradient(circle at 9% 20%, #8a6345 0 1.8px, rgba(255, 250, 232, .92) 2px 4.6px, transparent 5px),
-    radial-gradient(circle at 18% 68%, #8a6345 0 1.5px, rgba(255, 250, 232, .88) 1.8px 4px, transparent 4.5px),
-    radial-gradient(circle at 31% 32%, #8a6345 0 1.7px, rgba(255, 250, 232, .9) 2px 4.4px, transparent 5px),
-    radial-gradient(circle at 69% 24%, #8a6345 0 1.6px, rgba(255, 250, 232, .9) 2px 4.3px, transparent 4.8px),
-    radial-gradient(circle at 82% 62%, #8a6345 0 1.8px, rgba(255, 250, 232, .92) 2px 4.6px, transparent 5px),
-    radial-gradient(circle at 92% 34%, #8a6345 0 1.5px, rgba(255, 250, 232, .85) 1.8px 4px, transparent 4.5px);
-  filter: drop-shadow(0 0 5px rgba(255, 246, 214, .9));
-  animation: titleStarTwinkle 3.8s ease-in-out infinite alternate;
-}
-
-.save-title-section::after {
-  background-image:
-    radial-gradient(circle at 14% 44%, #8a6345 0 1.5px, rgba(255, 253, 244, .9) 1.8px 4px, transparent 4.5px),
-    radial-gradient(circle at 26% 82%, #8a6345 0 1.6px, rgba(255, 253, 244, .88) 2px 4.3px, transparent 4.8px),
-    radial-gradient(circle at 74% 78%, #8a6345 0 1.5px, rgba(255, 253, 244, .9) 1.8px 4px, transparent 4.5px),
-    radial-gradient(circle at 88% 48%, #8a6345 0 1.7px, rgba(255, 253, 244, .85) 2px 4.4px, transparent 5px);
-  filter: drop-shadow(0 0 5px rgba(255, 246, 214, .85));
-  animation: titleStarTwinkle 5.4s ease-in-out .9s infinite alternate-reverse;
-}
-
-.title-stars {
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-}
-
-.title-stars span {
-  position: absolute;
-  width: var(--size, 12px);
-  height: var(--size, 12px);
-  color: #fff8e7;
-  background:
-    linear-gradient(currentColor, currentColor) center / 2px 100% no-repeat,
-    linear-gradient(currentColor, currentColor) center / 100% 2px no-repeat;
-  filter: drop-shadow(0 0 6px rgba(138, 99, 69, .95));
-  transform: rotate(45deg) scale(.8);
-  animation: titleStarTwinkle var(--duration, 3.4s) ease-in-out var(--delay, 0s) infinite alternate;
-}
-
-.title-stars span:nth-child(1) { top: 16%; left: 7%; --size: 15px; --delay: -.3s; }
-.title-stars span:nth-child(2) { top: 28%; left: 22%; --size: 11px; --delay: -1.1s; }
-.title-stars span:nth-child(3) { top: 14%; left: 73%; --size: 13px; --delay: -1.8s; }
-.title-stars span:nth-child(4) { top: 34%; left: 89%; --size: 16px; --delay: -.7s; }
-.title-stars span:nth-child(5) { top: 66%; left: 12%; --size: 13px; --delay: -2.2s; }
-.title-stars span:nth-child(6) { top: 78%; left: 29%; --size: 16px; --delay: -.9s; }
-.title-stars span:nth-child(7) { top: 70%; left: 71%; --size: 12px; --delay: -1.5s; }
-.title-stars span:nth-child(8) { top: 84%; left: 88%; --size: 14px; --delay: -2.6s; }
-
 .save-title-section__inner {
   position: relative;
   z-index: 1;
@@ -386,8 +323,9 @@ a:focus-visible {
 
 .section-divider {
   position: relative;
-  height: clamp(20px, 3vw, 30px);
-  background: linear-gradient(90deg, transparent 0%, rgba(93, 64, 44, .08) 18%, rgba(138, 99, 69, .72) 50%, rgba(93, 64, 44, .08) 82%, transparent 100%);
+  height: clamp(10px, 1.4vw, 14px);
+  background: linear-gradient(180deg, #8a6345, #5d402c);
+  box-shadow: 0 1px 0 rgba(255, 253, 248, .42), 0 -1px 0 rgba(59, 42, 32, .22);
 }
 
 .section-divider::before {
@@ -398,19 +336,8 @@ a:focus-visible {
   width: 9px;
   height: 9px;
   transform: translate(-50%, -50%) rotate(45deg);
-  background: #8a6345;
-  box-shadow: 0 0 0 4px rgba(255, 253, 248, .32), 0 3px 12px rgba(59, 42, 32, .25);
-}
-
-.section-divider::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: clamp(110px, 22vw, 240px);
-  height: 1px;
-  transform: translate(-50%, -50%);
-  background: linear-gradient(90deg, transparent, rgba(59, 42, 32, .45), transparent);
+  background: #fff8e7;
+  box-shadow: 0 0 0 3px #5d402c, 0 3px 12px rgba(59, 42, 32, .28);
 }
 
 .hero {
@@ -420,6 +347,12 @@ a:focus-visible {
   min-height: 100svh;
   padding: clamp(48px, 6vw, 72px) 24px clamp(72px, 8vw, 100px);
   overflow: hidden;
+  background-color: var(--cream);
+  background-image: var(--background-image);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
 }
 
 .particles { position: absolute; inset: 0; pointer-events: none; }
@@ -540,7 +473,7 @@ a:focus-visible {
 .reveal {
   opacity: 0;
   transform: translateY(28px);
-  transition: opacity .8s var(--ease), transform .8s var(--ease);
+  transition: opacity .95s var(--ease-out), transform .95s var(--ease-out);
 }
 
 .reveal.is-visible { opacity: 1; transform: none; }
@@ -708,7 +641,7 @@ footer::after {
 }
 
 @keyframes siteIn {
-  from { opacity: 0; transform: translateY(10px); }
+  from { opacity: 0; transform: translateY(42px) scale(.985); }
   to { opacity: 1; transform: none; }
 }
 
@@ -731,7 +664,7 @@ footer::after {
 
 @media (min-width: 820px) {
   body, .intro { background-size: auto 100%; }
-  .save-title-section { background-size: auto 100%; }
+  .save-title-section, .hero { background-size: auto 100%; }
   .save-title-section__inner { max-width: 1280px; }
   .save-title {
     font-size: clamp(4.5rem, 12vw, 9.5rem);

@@ -242,7 +242,7 @@ function finishIntro() {
     intro.hidden = true;
     site.classList.add("is-visible");
     revealInView();
-  }, 650);
+  }, 900);
 }
 
 $("skipButton").addEventListener("click", (event) => {

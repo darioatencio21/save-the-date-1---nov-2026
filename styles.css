@@ -353,15 +353,9 @@ a:focus-visible {
   line-height: 1.65;
 }
 
-.date-section,
-.place-section {
+.date-section {
   position: relative;
   padding: clamp(64px, 10vw, 110px) 0;
-}
-
-.place-section {
-  padding-top: 0;
-  background: radial-gradient(circle at 50% 12%, rgba(217, 196, 165, .24), transparent 58%);
 }
 
 .date-section {
@@ -534,66 +528,6 @@ a:focus-visible {
   flex-wrap: wrap;
   justify-content: center;
   gap: 12px;
-}
-
-.panel--place h2 {
-  margin: 14px 0 0;
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.8rem, 5vw, 2.6rem);
-  font-weight: 600;
-}
-
-.place-divider {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: min(360px, 78%);
-  height: 24px;
-  margin: 18px auto;
-}
-
-.place-divider__line {
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(138, 99, 69, .6), transparent);
-}
-
-.place-divider__rose {
-  flex: none;
-  width: 20px;
-  height: 20px;
-  margin: 0 12px;
-  opacity: .92;
-}
-
-.venue-photo {
-  width: min(100%, 460px);
-  margin: 22px auto;
-  overflow: hidden;
-  border-radius: 14px;
-  box-shadow: 0 16px 36px rgba(59, 42, 32, .18);
-}
-
-.venue-photo img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.venue {
-  margin: 0;
-  font-family: 'Playfair Display', serif;
-  font-size: clamp(1.4rem, 4vw, 2rem);
-  font-style: italic;
-  color: var(--accent-dark);
-  text-shadow: 0 1px 0 #fffdf8, 0 8px 22px rgba(198, 166, 132, .55);
-}
-
-.address {
-  max-width: 440px;
-  margin: 8px auto 28px;
-  font-size: 1.08rem;
-  line-height: 1.5;
 }
 
 footer {

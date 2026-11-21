@@ -2,9 +2,9 @@ const $ = (id) => document.getElementById(id);
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
 const eventInfo = {
-  names: "Sofía & Diego",
-  monogram: "S&D",
-  slug: "sofia-diego-wedding",
+  names: "George & Monica",
+  monogram: "G&M",
+  slug: "george-monica-wedding",
   startsAt: "2027-06-13T17:00:00-06:00",
   endsAt: "2027-06-13T23:00:00-06:00",
   date: {
@@ -20,7 +20,6 @@ const eventInfo = {
     es: "545 UT-313, Moab, Utah 84532, Estados Unidos",
     en: "545 UT-313, Moab, UT 84532, United States"
   },
-  mapQuery: "The Red Earth Venue, 545 UT-313, Moab, UT 84532",
   mapUrl: "https://www.google.com/maps?aep=1&cs=1&sca_esv=dced30208946f18c&udm=50&pvq=Cg0vZy8xMW1oZzAwNXk4gAEC&fvr=1&vet=10CAAQoqAOahcKEwioipD9u5mYAxUAAAAAHQAAAAAQBQ..i&um=1&ie=UTF-8&fb=1&gl=ar&sa=X&ftid=0x874873863fc971bd:0x5e455173d09e9562"
 };
 
@@ -43,9 +42,6 @@ const copy = {
     calendarLabel: "Agrega la fecha a tu calendario",
     google: "Google Calendar",
     apple: "Apple Calendar",
-    placeEyebrow: "EL LUGAR",
-    placeTitle: "Nos vemos allí",
-    directions: "Cómo llegar",
     footerSign: "Con amor, {names}",
     footerNote: "Te esperamos",
     calendarTitle: "{names} · Save the date",
@@ -69,9 +65,6 @@ const copy = {
     calendarLabel: "Add the date to your calendar",
     google: "Google Calendar",
     apple: "Apple Calendar",
-    placeEyebrow: "THE PLACE",
-    placeTitle: "See you there",
-    directions: "Get directions",
     footerSign: "With love, {names}",
     footerNote: "We can't wait",
     calendarTitle: "{names} · Save the date",
@@ -107,8 +100,6 @@ function applyLanguage() {
   $("heroNames").textContent = eventInfo.names;
   $("dateText").textContent = eventInfo.date[lang];
   $("timeText").textContent = eventInfo.time[lang];
-  $("venueText").textContent = eventInfo.venue;
-  $("addressText").textContent = eventInfo.address[lang];
   $("languageButton").textContent = lang === "es" ? "English" : "Español";
   $("languageButton").setAttribute("aria-label", lang === "es" ? "Switch to English" : "Cambiar a español");
 }
@@ -206,7 +197,6 @@ $("googleButton").addEventListener("click", () => {
   window.open(googleCalendarUrl(), "_blank", "noopener");
 });
 $("appleButton").addEventListener("click", downloadIcs);
-$("mapLink").href = eventInfo.mapUrl || `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(eventInfo.mapQuery)}`;
 
 const revealElements = document.querySelectorAll(".reveal");
 

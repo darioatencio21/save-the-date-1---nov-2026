@@ -8,7 +8,7 @@
 <meta name="theme-color" content="#fffdf8">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Parisienne&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,600&family=Parisienne&family=Playfair+Display:ital,wght@0,700;1,400;1,600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 <link rel="preload" as="image" href="intro-poster.webp" fetchpriority="high">
 </head>
@@ -24,13 +24,19 @@
 
 <div class="falling" id="falling" aria-hidden="true"></div>
 
+<audio id="bgMusic" src="AThousandYears-Instrument.mp3" loop preload="none"></audio>
+
+<button type="button" class="music" id="musicButton" aria-label="Activar música" aria-pressed="false" title="Activar música">
+  <img src="medallon-musical.webp" alt="" width="256" height="253">
+</button>
+
+<div class="scroll-hint" id="scrollHint" aria-hidden="true">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+  <span data-i18n="scroll">Desliza</span>
+</div>
+
 <main class="site" id="site">
   <button type="button" class="language" id="languageButton" aria-label="Cambiar idioma / Change language">English</button>
-
-  <div class="scroll-hint" id="scrollHint" aria-hidden="true">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
-    <span data-i18n="scroll">Desliza</span>
-  </div>
 
   <section class="save-title-section" id="save-title">
     <div class="save-title-section__inner reveal">

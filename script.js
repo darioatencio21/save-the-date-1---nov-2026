@@ -20,6 +20,8 @@ const copy = {
     skip: "Saltar",
     soundOn: "Activar sonido",
     soundOff: "Silenciar sonido",
+    musicOn: "Activar música",
+    musicOff: "Pausar música",
     scroll: "Desliza",
     saveWord: "SAVE",
     theWord: "THE",
@@ -40,6 +42,8 @@ const copy = {
     skip: "Skip",
     soundOn: "Turn sound on",
     soundOff: "Turn sound off",
+    musicOn: "Play music",
+    musicOff: "Pause music",
     scroll: "Scroll",
     saveWord: "SAVE",
     theWord: "THE",
@@ -69,6 +73,16 @@ function t(key) {
   return translateValue((copy[lang] && copy[lang][key]) || copy.es[key] || "");
 }
 
+function updateMusicButton() {
+  const button = $("musicButton");
+  const playing = !$("bgMusic").paused;
+  button.classList.toggle("is-playing", playing);
+  button.setAttribute("aria-pressed", String(playing));
+  const label = t(playing ? "musicOff" : "musicOn");
+  button.setAttribute("aria-label", label);
+  button.setAttribute("title", label);
+}
+
 function applyLanguage() {
   document.querySelectorAll("[data-i18n]").forEach((element) => {
     element.textContent = t(element.getAttribute("data-i18n"));
@@ -82,12 +96,24 @@ function applyLanguage() {
   $("dateText").textContent = eventInfo.date[lang];
   $("languageButton").textContent = lang === "es" ? "English" : "Español";
   $("languageButton").setAttribute("aria-label", lang === "es" ? "Switch to English" : "Cambiar a español");
+  updateMusicButton();
 }
 
 $("languageButton").addEventListener("click", () => {
   lang = lang === "es" ? "en" : "es";
   applyLanguage();
 });
+
+const bgMusic = $("bgMusic");
+
+$("musicButton").addEventListener("click", (event) => {
+  event.stopPropagation();
+  if (bgMusic.paused) bgMusic.play().catch(() => {});
+  else bgMusic.pause();
+});
+
+bgMusic.addEventListener("play", updateMusicButton);
+bgMusic.addEventListener("pause", updateMusicButton);
 
 function icsDate(date) {
   return date.toISOString().replace(/[-:]/g, "").replace(/\.\d{3}/, "");
@@ -185,7 +211,7 @@ function burstConfetti() {
   const host = document.createElement("div");
   host.className = "confetti";
   const colors = ["#8a6345", "#b99b78", "#d9c4a5", "#fffdf8", "#5d402c", "#e8d8c0"];
-  const count = window.innerWidth < 480 ? 34 : 58;
+  const count = window.innerWidth < 480 ? 24 : 58;
 
   for (let index = 0; index < count; index += 1) {
     const piece = document.createElement("span");
@@ -212,6 +238,8 @@ function finishIntro() {
   introVideo.pause();
   intro.classList.add("is-leaving");
   document.body.classList.add("is-open");
+  bgMusic.currentTime = 0;
+  bgMusic.play().catch(() => {});
   burstConfetti();
   window.setTimeout(() => {
     intro.hidden = true;
@@ -241,7 +269,7 @@ soundButton.addEventListener("click", (event) => {
 function buildParticles() {
   if (reduceMotion) return;
   const host = $("particles");
-  const count = window.innerWidth < 768 ? 12 : 22;
+  const count = window.innerWidth < 480 ? 8 : window.innerWidth < 768 ? 12 : 22;
 
   for (let index = 0; index < count; index += 1) {
     const particle = document.createElement("span");
@@ -284,8 +312,8 @@ function buildFalling() {
   fallingEffectsBuilt = true;
   host.innerHTML = "";
 
-  const ringCount = window.innerWidth < 480 ? 4 : 8;
-  const roseCount = window.innerWidth < 480 ? 3 : 5;
+  const ringCount = window.innerWidth < 480 ? 3 : 8;
+  const roseCount = window.innerWidth < 480 ? 2 : 5;
 
   for (let index = 0; index < ringCount; index += 1) {
     addFallingItem(host, "ring", ringSvg, index, ringCount);

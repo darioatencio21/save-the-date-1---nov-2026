@@ -13,8 +13,6 @@
 <link rel="preload" as="image" href="intro-poster.webp" fetchpriority="high">
 </head>
 <body>
-<div class="falling" id="falling" aria-hidden="true"></div>
-
 <div class="intro" id="intro">
   <video class="intro__video" id="introVideo" src="gemini_generated_video_0d2b3d38.webm" poster="intro-poster.webp" autoplay muted playsinline preload="auto" controlslist="nodownload" disablepictureinpicture></video>
   <button type="button" class="intro__sound" id="soundButton" aria-label="Activar sonido" aria-pressed="false" title="Activar sonido">
@@ -23,6 +21,8 @@
   </button>
   <button type="button" class="intro__skip" id="skipButton" data-i18n="skip">Saltar</button>
 </div>
+
+<div class="falling" id="falling" aria-hidden="true"></div>
 
 <main class="site" id="site">
   <button type="button" class="language" id="languageButton" aria-label="Cambiar idioma / Change language">English</button>
@@ -48,14 +48,16 @@
   <section class="hero" id="hero">
     <div class="particles" id="particles" aria-hidden="true"></div>
     <div class="hero__inner">
-      <h2 class="hero__title">
-        <span class="hero__names" id="heroNames">George &amp; Monica</span>
-        <span class="hero__verb" data-i18n="heroVerb">We're getting married</span>
-      </h2>
+      <div class="hero__copy">
+        <h2 class="hero__title">
+          <span class="hero__names" id="heroNames">George &amp; Monica</span>
+          <span class="hero__verb" data-i18n="heroVerb">We're getting married</span>
+        </h2>
+        <p class="hero__note" data-i18n="heroNote">Love brought us here, and we want to celebrate this new chapter surrounded by the people we love most. Save this date to share an unforgettable moment with us.</p>
+      </div>
       <figure class="photo-frame">
         <img src="marco pareja.webp" alt="Foto de George y Monica en marco vintage" loading="eager">
       </figure>
-      <p class="hero__note" data-i18n="heroNote">Love brought us here, and we want to celebrate this new chapter surrounded by the people we love most. Save this date to share an unforgettable moment with us.</p>
     </div>
   </section>
 
@@ -92,7 +94,6 @@
       <p class="eyebrow" data-i18n="dateEyebrow">LA FECHA</p>
       <div class="date__display">
         <p class="date" id="dateText">September 25, 2027</p>
-        <p class="time" id="timeText">17:00 h</p>
       </div>
       <div class="ornament" aria-hidden="true"></div>
       <p class="calendar__label" data-i18n="calendarLabel">Agrega la fecha a tu calendario</p>

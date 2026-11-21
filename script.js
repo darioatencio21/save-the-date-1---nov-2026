@@ -1,26 +1,17 @@
 const $ = (id) => document.getElementById(id);
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+let fallingEffectsBuilt = false;
 
 const eventInfo = {
   names: "George & Monica",
   monogram: "G&M",
   slug: "george-monica-wedding",
-  startsAt: "2027-09-25T17:00:00-06:00",
-  endsAt: "2027-09-25T23:00:00-06:00",
+  dateStart: "20270925",
+  dateEnd: "20270926",
   date: {
     es: "25 de septiembre de 2027",
     en: "September 25, 2027"
-  },
-  time: {
-    es: "17:00 h",
-    en: "5:00 PM"
-  },
-  venue: "The Red Earth Venue",
-  address: {
-    es: "545 UT-313, Moab, Utah 84532, Estados Unidos",
-    en: "545 UT-313, Moab, UT 84532, United States"
-  },
-  mapUrl: "https://www.google.com/maps?aep=1&cs=1&sca_esv=dced30208946f18c&udm=50&pvq=Cg0vZy8xMW1oZzAwNXk4gAEC&fvr=1&vet=10CAAQoqAOahcKEwioipD9u5mYAxUAAAAAHQAAAAAQBQ..i&um=1&ie=UTF-8&fb=1&gl=ar&sa=X&ftid=0x874873863fc971bd:0x5e455173d09e9562"
+  }
 };
 
 const copy = {
@@ -42,7 +33,7 @@ const copy = {
     footerSign: "Con amor, {names}",
     footerNote: "Invitación formal próximamente",
     calendarTitle: "{names} · Save the date",
-    calendarDetails: "{names} nos casamos el {date} a las {time}.\nLugar: {venue}, {address}.\nUbicación: {mapUrl}\n\nGuarda la fecha y pronto te compartiremos todos los detalles."
+    calendarDetails: "{names} nos casamos el {date}.\n\nGuarda la fecha y pronto te compartiremos todos los detalles."
   },
   en: {
     pageTitle: "{names} · Save the date",
@@ -62,7 +53,7 @@ const copy = {
     footerSign: "With love, {names}",
     footerNote: "Formal invitation to follow",
     calendarTitle: "{names} · Save the date",
-    calendarDetails: "{names} are getting married on {date} at {time}.\nVenue: {venue}, {address}.\nLocation: {mapUrl}\n\nSave the date — we'll share all the details soon."
+    calendarDetails: "{names} are getting married on {date}.\n\nSave the date — we'll share all the details soon."
   }
 };
 
@@ -71,11 +62,7 @@ let lang = "en";
 function translateValue(value) {
   return String(value || "")
     .replace(/\{names\}/g, eventInfo.names)
-    .replace(/\{venue\}/g, eventInfo.venue)
-    .replace(/\{address\}/g, eventInfo.address[lang])
-    .replace(/\{date\}/g, eventInfo.date[lang])
-    .replace(/\{time\}/g, eventInfo.time[lang])
-    .replace(/\{mapUrl\}/g, eventInfo.mapUrl || "");
+    .replace(/\{date\}/g, eventInfo.date[lang]);
 }
 
 function t(key) {
@@ -93,7 +80,6 @@ function applyLanguage() {
   $("soundButton").setAttribute("title", soundLabel);
   $("heroNames").textContent = eventInfo.names;
   $("dateText").textContent = eventInfo.date[lang];
-  $("timeText").textContent = eventInfo.time[lang];
   $("languageButton").textContent = lang === "es" ? "English" : "Español";
   $("languageButton").setAttribute("aria-label", lang === "es" ? "Switch to English" : "Cambiar a español");
 }
@@ -115,40 +101,29 @@ function escapeIcs(value) {
     .replace(/\r?\n/g, "\\n");
 }
 
-function venueLocation() {
-  return `${eventInfo.venue}, ${eventInfo.address[lang]}`;
-}
-
 function googleCalendarUrl() {
-  const start = new Date(eventInfo.startsAt);
-  const end = new Date(eventInfo.endsAt);
   const params = new URLSearchParams({
     action: "TEMPLATE",
     text: t("calendarTitle"),
-    dates: `${icsDate(start)}/${icsDate(end)}`,
-    details: t("calendarDetails"),
-    location: venueLocation()
+    dates: `${eventInfo.dateStart}/${eventInfo.dateEnd}`,
+    details: t("calendarDetails")
   });
   return `https://calendar.google.com/calendar/render?${params.toString()}`;
 }
 
 function downloadIcs() {
-  const start = new Date(eventInfo.startsAt);
-  const end = new Date(eventInfo.endsAt);
   const lines = [
     "BEGIN:VCALENDAR",
     "VERSION:2.0",
     `PRODID:-//${eventInfo.slug}//ES`,
     "CALSCALE:GREGORIAN",
     "BEGIN:VEVENT",
-    `UID:${eventInfo.slug}-${start.getTime()}@save-the-date`,
+    `UID:${eventInfo.slug}-${eventInfo.dateStart}@save-the-date`,
     `DTSTAMP:${icsDate(new Date())}`,
-    `DTSTART:${icsDate(start)}`,
-    `DTEND:${icsDate(end)}`,
+    `DTSTART;VALUE=DATE:${eventInfo.dateStart}`,
+    `DTEND;VALUE=DATE:${eventInfo.dateEnd}`,
     `SUMMARY:${escapeIcs(t("calendarTitle"))}`,
     `DESCRIPTION:${escapeIcs(t("calendarDetails"))}`,
-    `LOCATION:${escapeIcs(venueLocation())}`,
-    `URL:${escapeIcs(eventInfo.mapUrl || "")}`,
     "END:VEVENT",
     "END:VCALENDAR"
   ];
@@ -287,28 +262,36 @@ const ringSvg = `<svg viewBox="0 0 64 64" xmlns="http://www.w3.org/2000/svg"><el
 
 const roseSvg = `<svg viewBox="0 0 56 64" xmlns="http://www.w3.org/2000/svg"><path d="M28 36v24" fill="none" stroke="#8a6345" stroke-width="1.8" stroke-linecap="round"/><path d="M28 44c-8-1-13-6-14-12 7 0 12 4 14 12Z" fill="#b99b78" stroke="#8a6345" stroke-width="1.2"/><path d="M28 50c8-1 13-6 14-12-7 0-12 4-14 12Z" fill="#d9c4a5" stroke="#8a6345" stroke-width="1.2"/><path d="M28 5c8 0 15 6 15 16s-7 17-15 17S13 31 13 21 20 5 28 5Z" fill="#d9c4a5" stroke="#8a6345" stroke-width="1.4"/><path d="M27 7C18 6 11 12 12 21c1 6 6 10 11 10-6-4-7-10-4-15 2-4 5-6 8-7Z" fill="#e8d8c0" stroke="#8a6345" stroke-width="1.1"/><path d="M29 7c9-1 16 5 15 14-1 6-6 10-11 10 6-4 7-10 4-15-2-4-5-6-8-7Z" fill="#c6a684" stroke="#8a6345" stroke-width="1.1"/><path d="M28 11c5 0 9 4 9 10s-4 10-9 10-9-4-9-10 4-10 9-10Z" fill="#faf5ec" stroke="#8a6345" stroke-width="1.2"/><path d="M28 14c4 0 7 3 7 7s-3 7-7 7-7-3-7-7 3-7 7-7Z" fill="#e8d8c0" stroke="#8a6345" stroke-width="1"/><path d="M32 16c2 2 3 5 2 8s-4 5-7 4c-3-1-4-4-3-6 1-3 4-4 6-3 2 1 2 3 1 4" fill="none" stroke="#8a6345" stroke-width="1.4" stroke-linecap="round"/></svg>`;
 
-function addFallingItem(className, size, markup) {
+function addFallingItem(host, type, markup, index, total) {
   const item = document.createElement("div");
-  item.className = className;
-  item.style.setProperty("--left", `${Math.random() * 100}%`);
-  item.style.setProperty("--size", `${size.toFixed(0)}px`);
-  item.style.setProperty("--duration", `${12 + Math.random() * 12}s`);
-  item.style.setProperty("--delay", `${-Math.random() * 24}s`);
-  item.style.setProperty("--opacity", (0.3 + Math.random() * 0.35).toFixed(2));
-  item.style.setProperty("--drift", `${Math.random() * 100 - 50}px`);
-  item.style.setProperty("--spin", `${Math.random() * 280 - 140}deg`);
-  if (markup) item.innerHTML = markup;
-  $("falling").appendChild(item);
+  item.className = `falling__item falling__item--${type}`;
+  const slot = (index + 0.5) / total;
+  item.style.setProperty("--left", `${-4 + slot * 52 + (Math.random() - 0.5) * 3}%`);
+  item.style.setProperty("--size", `${type === "ring" ? 28 + Math.random() * 8 : 30 + Math.random() * 10}px`);
+  item.style.setProperty("--duration", `${15 + Math.random() * 6}s`);
+  item.style.setProperty("--delay", `${-slot * 20 - Math.random() * 3}s`);
+  item.style.setProperty("--opacity", (0.34 + Math.random() * 0.16).toFixed(2));
+  item.style.setProperty("--drift", `${-50 + Math.random() * 80}px`);
+  item.style.setProperty("--spin", `${Math.random() * 220 - 110}deg`);
+  item.innerHTML = markup;
+  host.appendChild(item);
 }
 
 function buildFalling() {
-  if (reduceMotion) return;
-  const small = window.innerWidth < 480;
-  for (let index = 0; index < (small ? 6 : 14); index += 1) {
-    addFallingItem("falling__item falling__item--ring", 26 + Math.random() * 16, ringSvg);
+  if (reduceMotion || fallingEffectsBuilt) return;
+  const host = $("falling");
+  if (!host) return;
+  fallingEffectsBuilt = true;
+  host.innerHTML = "";
+
+  const ringCount = window.innerWidth < 480 ? 4 : 8;
+  const roseCount = window.innerWidth < 480 ? 3 : 5;
+
+  for (let index = 0; index < ringCount; index += 1) {
+    addFallingItem(host, "ring", ringSvg, index, ringCount);
   }
-  for (let index = 0; index < (small ? 4 : 10); index += 1) {
-    addFallingItem("falling__item falling__item--rose", 26 + Math.random() * 18, roseSvg);
+  for (let index = 0; index < roseCount; index += 1) {
+    addFallingItem(host, "rose", roseSvg, index, roseCount);
   }
 }
 

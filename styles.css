@@ -337,6 +337,7 @@ body:not(.is-open) .scroll-hint { display: none; }
 
 .save-title {
   margin: 0;
+  padding-block: .26em;
   font-family: 'Playfair Display', serif;
   font-size: clamp(3.2rem, 15vw, 8rem);
   font-weight: 700;
@@ -433,6 +434,7 @@ body:not(.is-open) .scroll-hint { display: none; }
 }
 
 .hero__names {
+  padding-block: .20em;
   font-family: 'Parisienne', cursive;
   font-size: clamp(3.4rem, 14vw, 7rem);
   font-weight: 400;
@@ -532,6 +534,7 @@ body:not(.is-open) .scroll-hint { display: none; }
 
 .date {
   margin: 0;
+  padding-block: .16em;
   font-family: 'Playfair Display', serif;
   font-size: clamp(2.6rem, 10vw, 5.4rem);
   font-style: italic;
